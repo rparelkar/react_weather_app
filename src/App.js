@@ -4,6 +4,7 @@ import Form from "./components/form";
 import Titles from "./components/titles";
 
 const Api_Key = "89ef02fa81a33ba892549aa1c220b2fc";
+let tempToggleCelsius = 1;
 
 class App extends React.Component {
 
@@ -17,7 +18,32 @@ class App extends React.Component {
     description: undefined,
     error: undefined
   }
-
+  
+  // have a Farenheit to celsius switch
+  tempChange = () => {
+    console.log("Inside temp change");
+    if(tempToggleCelsius){
+      this.setState({
+        temperature: (this.state.temperature * 9 / 5 + 32),
+        temperatureFeel: (this.state.temperatureFeel * 9 / 5 + 32),
+        city: this.state.city,
+        country: this.state.country,
+        humidity: this.state.humidity,
+        description: this.state.description,
+        error: this.state.error
+      })
+    }else{
+      this.setState({
+        temperature: (this.state.temperature - 32) * 5 / 9,
+        temperatureFeel: (this.state.temperatureFeel - 32) * 5 / 9,
+        city: this.state.city,
+        country: this.state.country,
+        humidity: this.state.humidity,
+        description: this.state.description,
+        error: this.state.error
+      })
+    }
+  }
   getWeather = async (e) => {
     console.log("Inside get weather");
     const city = e.target.elements.city.value;

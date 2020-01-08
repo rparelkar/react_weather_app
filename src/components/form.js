@@ -11,6 +11,9 @@ class Form extends React.Component{
                     <input type="text" name="country" placeholder="Country..."/>
                     <button>Get Weather</button>
                 </form>
+                <button onClick = {this.tempChange}>Farenheit/Celsius</button>
+
+
           </div>
         )
     }
