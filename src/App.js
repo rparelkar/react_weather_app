@@ -10,6 +10,7 @@ class App extends React.Component {
   state = {
 
     temperature: undefined,
+    temperatureFeel: undefined,
     city: undefined,
     country: undefined,
     humidity: undefined,
@@ -27,7 +28,8 @@ class App extends React.Component {
     console.log(response);
     if(city && country){
       this.setState({
-        temperature: response.main.temp,
+        temperature: (response.main.temp-273.15).toFixed(2),
+        temperatureFeel: (response.main.feels_like-273.15).toFixed(2),
         city: response.name,
         country: response.sys.country,
         humidity: response.main.humidity,
@@ -57,6 +59,7 @@ class App extends React.Component {
                 <Form loadWeather={this.getWeather} />
                   <Weather
                     temperature={this.state.temperature}
+                    temperatureFeel={this.state.temperatureFeel}
                     city={this.state.city}
                     country={this.state.country}
                     humidity={this.state.humidity}
