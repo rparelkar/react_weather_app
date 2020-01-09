@@ -4,6 +4,7 @@ import Form from "./components/form";
 import Titles from "./components/titles";
 
 const Api_Key = "89ef02fa81a33ba892549aa1c220b2fc";
+const googleapis_key = "AIzaSyBQPvBl4ygnyU_mo_Bp1mJC-A8gb0l5Egw";
 
 class App extends React.Component {
   constructor() {
@@ -51,9 +52,22 @@ class App extends React.Component {
   toCelsius = (temperature: Number) => {
     return ((temperature - 32)* 5 / 9).toFixed(2);
   }
+  success = async (position) => {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log(latitude, longitude);
+
+    const api_call = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true&key=${googleapis_key}`);
+    const response = await api_call.json();
+    console.log(response);
+  }
+
+  error = () => {
+  }
 
   // get weather from openweather api
   getWeather = async (e) => {
+    console.log(navigator.geolocation.getCurrentPosition(this.success, this.error));
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
     e.preventDefault();
