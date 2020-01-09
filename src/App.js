@@ -20,46 +20,45 @@ class App extends React.Component {
     humidity: undefined,
     description: undefined,
     error: undefined,
-    isTempInCelsius: 1
+    isTempInCelsius: true // Initializing temperature to celsius
   }
 
-  // this.state.isTempInCelsius = True; // Initializing temperature to celsius
 
   // have a Farenheit to celsius switch
   tempChange = () => {
     if(this.state.isTempInCelsius){
       this.setState({
-        temperature: (this.state.temperature * 9 / 5 + 32).toFixed(2),
-        temperatureFeel: (this.state.temperatureFeel * 9 / 5 + 32).toFixed(2),
-        city: this.state.city,
-        country: this.state.country,
-        humidity: this.state.humidity,
-        description: this.state.description,
-        error: this.state.error,
-        isTempInCelsius: 0
+        temperature: this.toFarenheit(this.state.temperature),
+        temperatureFeel: this.toFarenheit(this.state.temperatureFeel),
+        isTempInCelsius: false
       })
 
     }else{
       this.setState({
-        temperature: ((this.state.temperature - 32) * 5 / 9).toFixed(2),
-        temperatureFeel: ((this.state.temperatureFeel - 32) * 5 / 9).toFixed(2),
-        city: this.state.city,
-        country: this.state.country,
-        humidity: this.state.humidity,
-        description: this.state.description,
-        error: this.state.error,
-        isTempInCelsius: 1
+        temperature: this.toCelsius(this.state.temperature),
+        temperatureFeel: this.toCelsius(this.state.temperatureFeel),
+        isTempInCelsius: true
       })
     }
   }
+
+  // method to convert temperature to farenheit
+  toFarenheit = (temperature: Number) => {
+    return (temperature * 9 / 5 + 32).toFixed(2);
+  }
+
+  // method to conver temperature to celsius
+  toCelsius = (temperature: Number) => {
+    return ((temperature - 32)* 5 / 9).toFixed(2);
+  }
+
+  // get weather from openweather api
   getWeather = async (e) => {
-    console.log("Inside get weather");
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
     e.preventDefault();
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${Api_Key}`);
     const response = await api_call.json();
-    console.log(response);
     if(city && country){
       this.setState({
         temperature: (response.main.temp-273.15).toFixed(2),
