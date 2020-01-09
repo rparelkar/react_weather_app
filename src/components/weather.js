@@ -14,15 +14,16 @@ class Weather extends React.Component{
                 }
 
                 {
-                    this.props.temperature && <p className="weather__key">Temperature:
-                        <span className="weather__value">  {this.props.temperature}</span>
-                    </p>
+
+                    this.props.temperature && <div><p className="weather__key">Temperature:
+                        <span className="weather__value">  {this.props.temperature} {this.props.isTempInCelsius ? 'C' : 'F'}</span>
+                    </p></div>
                 }
 
                 {
-                    this.props.temperatureFeel && <p className="weather__key">Temperature Feels:
-                        <span className="weather__value">  {this.props.temperatureFeel}</span>
-                    </p>
+                    this.props.temperatureFeel && <div><p className="weather__key">Temperature Feels:
+                        <span className="weather__value">  {this.props.temperatureFeel} {this.props.isTempInCelsius ? 'C' : 'F'}</span>
+                    </p></div>
                 }
 
                 {

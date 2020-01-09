@@ -4,17 +4,12 @@ import Form from "./components/form";
 import Titles from "./components/titles";
 
 const Api_Key = "89ef02fa81a33ba892549aa1c220b2fc";
-let tempToggleCelsius = 1;
 
 class App extends React.Component {
   constructor() {
     super();
     this.tempChange = this.tempChange.bind(this);
   }
-
-  // onChildClicked() {
-  //   this.setState({childWasClicked : True });
-  // }
 
   state = {
 
@@ -25,35 +20,36 @@ class App extends React.Component {
     humidity: undefined,
     description: undefined,
     error: undefined,
-    
+    isTempInCelsius: 1
   }
+
+  // this.state.isTempInCelsius = True; // Initializing temperature to celsius
 
   // have a Farenheit to celsius switch
   tempChange = () => {
-    console.log(tempToggleCelsius);
-    console.log("Inside temp change");
-    if(tempToggleCelsius){
+    if(this.state.isTempInCelsius){
       this.setState({
-        temperature: (this.state.temperature * 9 / 5 + 32),
-        temperatureFeel: (this.state.temperatureFeel * 9 / 5 + 32),
+        temperature: (this.state.temperature * 9 / 5 + 32).toFixed(2),
+        temperatureFeel: (this.state.temperatureFeel * 9 / 5 + 32).toFixed(2),
         city: this.state.city,
         country: this.state.country,
         humidity: this.state.humidity,
         description: this.state.description,
-        error: this.state.error
+        error: this.state.error,
+        isTempInCelsius: 0
       })
-      tempToggleCelsius = 0;
+
     }else{
       this.setState({
-        temperature: (this.state.temperature - 32) * 5 / 9,
-        temperatureFeel: (this.state.temperatureFeel - 32) * 5 / 9,
+        temperature: ((this.state.temperature - 32) * 5 / 9).toFixed(2),
+        temperatureFeel: ((this.state.temperatureFeel - 32) * 5 / 9).toFixed(2),
         city: this.state.city,
         country: this.state.country,
         humidity: this.state.humidity,
         description: this.state.description,
-        error: this.state.error
+        error: this.state.error,
+        isTempInCelsius: 1
       })
-      tempToggleCelsius = 1;
     }
   }
   getWeather = async (e) => {
@@ -103,6 +99,7 @@ class App extends React.Component {
                     humidity={this.state.humidity}
                     description={this.state.description}
                     error={this.state.error}
+                    isTempInCelsius={this.state.isTempInCelsius}
                   />
                 </div>
               </div>
