@@ -67,6 +67,9 @@ class App extends React.Component {
     const response = await api_call.json();
     console.log(response);
 
+    if(response){
+      alert('Rahul knows where you are. To select different location enter in the text fields below.');
+    }
     this.setState({
       temperature: (response.main.temp-273.15).toFixed(2),
       temperatureFeel: (response.main.feels_like-273.15).toFixed(2),
