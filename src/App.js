@@ -4,13 +4,18 @@ import Form from "./components/form";
 import Titles from "./components/titles";
 
 const Api_Key = "89ef02fa81a33ba892549aa1c220b2fc";
-const googleapis_key = "AIzaSyBQPvBl4ygnyU_mo_Bp1mJC-A8gb0l5Egw";
+// const googleapis_key = "AIzaSyBQPvBl4ygnyU_mo_Bp1mJC-A8gb0l5Egw";
 
 class App extends React.Component {
   constructor() {
     super();
     this.tempChange = this.tempChange.bind(this);
   }
+
+  componentDidMount(){
+    navigator.geolocation.getCurrentPosition(this.success, this.error)
+  }
+
 
   state = {
 
@@ -52,14 +57,25 @@ class App extends React.Component {
   toCelsius = (temperature: Number) => {
     return ((temperature - 32)* 5 / 9).toFixed(2);
   }
+
   success = async (position) => {
     const latitude  = position.coords.latitude;
     const longitude = position.coords.longitude;
     console.log(latitude, longitude);
 
-    const api_call = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true&key=${googleapis_key}`);
+    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${Api_Key}`);
     const response = await api_call.json();
     console.log(response);
+
+    this.setState({
+      temperature: (response.main.temp-273.15).toFixed(2),
+      temperatureFeel: (response.main.feels_like-273.15).toFixed(2),
+      city: response.name,
+      country: response.sys.country,
+      humidity: response.main.humidity,
+      description: response.weather[0].description,
+      error: ""
+    })
   }
 
   error = () => {
@@ -67,7 +83,7 @@ class App extends React.Component {
 
   // get weather from openweather api
   getWeather = async (e) => {
-    console.log(navigator.geolocation.getCurrentPosition(this.success, this.error));
+    console.log();
     const city = e.target.elements.city.value;
     const country = e.target.elements.country.value;
     e.preventDefault();
