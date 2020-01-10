@@ -23,7 +23,7 @@ body {
 }
 
 .title-container {
-  height: 10vh;
+  height: 30vh;
   background: url("img/bg.jpg") center center no-repeat;
   background-size: cover;
   display: flex;
