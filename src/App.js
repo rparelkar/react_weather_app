@@ -2,6 +2,7 @@ import React from "react";
 import Weather from "./components/weather";
 import Form from "./components/form";
 import Titles from "./components/titles";
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
 const Api_Key = "89ef02fa81a33ba892549aa1c220b2fc";
@@ -119,10 +120,10 @@ class App extends React.Component {
           <div className="main">
             <div className="container">
               <div className="row">
-                <div className="col-lg-4 col-md-4 col-xs-4 title-container">
+                <div className="col-lg-5 col-md-5 col-xs-5 title-container">
                 <Titles />
                 </div>
-                <div className="col-lg-8 col-md-8 col-xs-8 form-container">
+                <div className="col-lg-7 col-md-7 col-xs-7 form-container">
                 <Form loadWeather={this.getWeather} onClicked={this.tempChange}/>
                   <Weather
                     temperature={this.state.temperature}
