@@ -2,6 +2,7 @@ import React from "react";
 import Weather from "./components/weather";
 import Form from "./components/form";
 import Titles from "./components/titles";
+import './App.css'
 
 const Api_Key = "89ef02fa81a33ba892549aa1c220b2fc";
 // const googleapis_key = "AIzaSyBQPvBl4ygnyU_mo_Bp1mJC-A8gb0l5Egw";
