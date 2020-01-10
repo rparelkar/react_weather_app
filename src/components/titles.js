@@ -6,8 +6,8 @@ class Titles extends React.Component {
 
         return (
           <div>
-          <h1>Weather App</h1>
-          <p>Weather in your city...</p>
+          <h1 className="title-container__title">Weather Scanner </h1>
+          <p className="title-container__subtitle"> Helps you find weather conditions in cities...  </p>
           </div>
         )
       }
